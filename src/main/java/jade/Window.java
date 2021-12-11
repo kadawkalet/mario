@@ -20,10 +20,17 @@ public class Window {
 
     private static Window window = null;
 
+    private float r, g, b, a;
+    private boolean fadeToBlack = false;
+
     private Window() {
         this.width = 1920;
         this.height = 1080;
         this.title = "Mario";
+        r = 1;
+        g = 1;
+        b = 1;
+        a = 1;
     }
 
     public static Window get() {
@@ -93,9 +100,9 @@ public class Window {
 
     public void loop() {
 
-        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-
         while (!glfwWindowShouldClose(glfwWindow)) {
+
+            glClearColor(r, g, b, a);
 
             glfwPollEvents();
 
@@ -103,8 +110,14 @@ public class Window {
 
             glfwSwapBuffers(glfwWindow);
 
+            if (fadeToBlack) {
+                r = Math.max(r - 0.01f, 0);
+                g = Math.max(g - 0.01f, 0);
+                b = Math.max(b - 0.01f, 0);
+            }
+
             if (KeyListener.isKeyPressed(GLFW_KEY_SPACE)) {
-                System.out.println("Pressed Space Key");
+                fadeToBlack = true;
             }
         }
     }

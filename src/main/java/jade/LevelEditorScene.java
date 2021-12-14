@@ -4,30 +4,25 @@ import java.awt.event.KeyEvent;
 
 public class LevelEditorScene extends Scene {
 
-    private boolean changingScene = false;
-    private float timeToChangeScene = 2.0f;
-
+    private String vertexShaderSrc = "#type vertex\n" +
+            "#version 330 core\n" +
+            "\n" +
+            "layout (location=0) in vec3 aPos;\n" +
+            "layout (location=1) in vec4 aColor;\n" +
+            "\n" +
+            "out vec4 fColor;\n" +
+            "\n" +
+            "void main() {\n" +
+            "    fColor = aColor;\n" +
+            "    gl_Position = vec4(aPos, 1.0);\n" +
+            "}";
+    
     public LevelEditorScene() {
-        System.out.println("Inside level editor scene");
+
     }
 
     @Override
     public void update(float dt) {
 
-        System.out.println("" + (1.0f / dt) + "FPS");
-
-        if (!changingScene && KeyListener.isKeyPressed(KeyEvent.VK_SPACE)) {
-            changingScene = true;
-        }
-
-        if (changingScene && timeToChangeScene > 0) {
-            timeToChangeScene -= dt;
-            Window.get().r -= dt * 5.0f;
-            Window.get().g -= dt * 5.0f;
-            Window.get().b -= dt * 5.0f;
-        }
-        else if (changingScene) {
-            Window.changeScene(1);
-        }
     }
 }

@@ -17,7 +17,7 @@ public class Window {
 
     private static Window window = null;
 
-    public float r, g, b, a;
+    private float r, g, b, a;
 
     private static Scene currentScene;
 
